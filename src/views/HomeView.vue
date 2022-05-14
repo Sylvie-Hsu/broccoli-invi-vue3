@@ -27,11 +27,12 @@ const bottomInfo = '@2022 Broccoli & Co. All rights reserved.'
     flex-direction: column;
     justify-content: space-between;
     font-weight: bold;
+    color: $brown;
     &__content {
         flex: 1 1 auto;
     }
     &__header {
-        background: $yellow;
+        background: $green;
         padding: 24px;
         font-weight: 600;
     }
@@ -40,7 +41,7 @@ const bottomInfo = '@2022 Broccoli & Co. All rights reserved.'
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: $yellow;
+        background: $green;
         padding: 18px;
         font-size: 12px;
     }

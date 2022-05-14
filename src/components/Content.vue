@@ -22,7 +22,7 @@ function toggleModal() {
         <div class="title">{{ topText }}</div>
         <div class="title">{{ bottomText }}</div>
         <div class="more-info">{{ moreText }}</div>
-        <div>
+        <div class="request-btn">
             <n-button strong secondary @click="onClickBtn">{{ btnText }}</n-button>
         </div>
         <InvitationModal v-if="state.showModal" :show-modal="state.showModal" @close="toggleModal" />
@@ -43,6 +43,9 @@ function toggleModal() {
     .more-info {
         font-size: 16px;
         padding: 10px;
+    }
+    .request-btn {
+        padding-top: 20px;
     }
 }
 </style>
