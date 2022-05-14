@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import type { FormRules, FormItemRule, FormItemInst, FormInst } from 'naive-ui'
-import { useMessage } from 'naive-ui'
 import axios from 'axios'
 interface FormType {
     name: string | null
@@ -11,7 +10,7 @@ interface FormType {
 
 const props = defineProps(['showModal'])
 const emit = defineEmits(['close'])
-const state = reactive({ isLoading: false, showSuccess: false })
+const state = reactive({ isLoading: false, showSuccess: false, errorMsg: '' })
 const modalTitle = computed(() => {
     return state.showSuccess ? 'All Done!' : 'Request an Invite'
 })
@@ -22,7 +21,6 @@ const form = ref<FormType>({
 })
 const formRef = ref<FormInst | null>(null)
 const rEmailFormItemRef = ref<FormItemInst | null>(null)
-const message = useMessage()
 const rules: FormRules = {
     name: [
         {
@@ -86,23 +84,21 @@ function onClickGetInvitationBtn() {
     formRef.value?.validate((errors) => {
         if (!errors) {
             sendInvitationRequest()
-        } else {
-            message.error('Validation Failed')
         }
     })
 }
 async function sendInvitationRequest() {
     state.isLoading = true
+    state.errorMsg = ''
     try {
         const requestURL = 'https://l94wc2001h.execute-api.ap-southeast-2.amazonaws.com/prod/fake-auth'
         await axios.post(requestURL, {
             name: form.value.name,
             email: form.value.email,
         })
-        message.success('Success')
         showSuccessModal()
     } catch (error) {
-        message.error((error as Error).message)
+        state.errorMsg = (error as Error).message
     } finally {
         state.isLoading = false
     }
@@ -140,6 +136,7 @@ function toggleShowSuccess() {
                         @keydown.enter.prevent
                     />
                 </n-form-item>
+                <div class="error-info" v-if="state.errorMsg">{{ state.errorMsg }}</div>
                 <n-row :gutter="[0, 24]">
                     <n-col :span="24">
                         <div style="display: flex; justify-content: flex-end">
@@ -160,7 +157,7 @@ function toggleShowSuccess() {
 
 <style scoped lang="scss">
 .inivitation-modal {
-    width: 50%;
+    width: 30%;
     min-width: 360px;
     .success-content {
         display: flex;
@@ -168,6 +165,9 @@ function toggleShowSuccess() {
         align-items: center;
         justify-content: space-around;
         height: 100px;
+    }
+    .error-info {
+        color: $red;
     }
 }
 </style>

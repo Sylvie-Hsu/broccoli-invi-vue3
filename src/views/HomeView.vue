@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Content from '@/components/Content.vue'
-import { NSpace, NLayout, NLayoutHeader, NLayoutFooter } from 'naive-ui'
 
 const corpName = 'BROCCOLI & CO.'
 const authorInfo = 'Made with love in Shanghai'
