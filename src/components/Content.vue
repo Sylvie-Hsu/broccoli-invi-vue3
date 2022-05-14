@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { NButton } from 'naive-ui'
+import { reactive } from 'vue'
+import InvitationModal from './InvitationModal.vue'
 
-const topText = 'A better way'
-const bottomText = 'to enjoy every day.'
-const moreText = 'Be the first to know when we launch.'
-const btnText = 'Request an Invitation'
+const topText: string = 'A better way'
+const bottomText: string = 'to enjoy every day.'
+const moreText: string = 'Be the first to know when we launch.'
+const btnText: string = 'Request an Invitation'
+const state = reactive({ showModal: false })
+
+function onClickBtn() {
+    toggleModal()
+}
+
+function toggleModal() {
+    state.showModal = !state.showModal
+}
 </script>
 
 <template>
@@ -13,8 +23,9 @@ const btnText = 'Request an Invitation'
         <div class="title">{{ bottomText }}</div>
         <div class="more-info">{{ moreText }}</div>
         <div>
-            <n-button strong secondary>{{ btnText }}</n-button>
+            <n-button strong secondary @click="onClickBtn">{{ btnText }}</n-button>
         </div>
+        <InvitationModal :show-modal="state.showModal" @close="toggleModal" />
     </div>
 </template>
 
