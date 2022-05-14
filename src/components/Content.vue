@@ -25,7 +25,7 @@ function toggleModal() {
         <div>
             <n-button strong secondary @click="onClickBtn">{{ btnText }}</n-button>
         </div>
-        <InvitationModal :show-modal="state.showModal" @close="toggleModal" />
+        <InvitationModal v-if="state.showModal" :show-modal="state.showModal" @close="toggleModal" />
     </div>
 </template>
 

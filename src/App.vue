@@ -5,7 +5,9 @@ import HelloWorld from '@/components/HelloWorld.vue'
 </script>
 
 <template>
-    <RouterView />
+    <n-message-provider>
+        <RouterView />
+    </n-message-provider>
 </template>
 
 <style>
